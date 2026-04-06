@@ -1,0 +1,49 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background 0.2s ease, transform 0.1s ease;
+  font-size: 16px;
+}
+
+.btn:active {
+  transform: scale(0.97);
+}
+
+.btn--primary {
+  background: #ff7a00;
+  color: white;
+}
+
+.btn--secondary {
+  background: #ffffff;
+  color: #000000;
+}
+
+.btn--primary {
+  background: #ff7a00;
+  color: white;
+}
+
+.btn--tertiary {
+  background: #fff;
+  color: #00913f;
+}
+
+.btn--danger {
+  background: #dc2626;
+  color: white;
+}
+
+.btn--sm { height: 32px; padding: 0 12px; }
+.btn--md { height: 40px; padding: 0 16px; }
+.btn--lg { height: 48px; padding: 0 24px; }
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
