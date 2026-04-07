@@ -1,0 +1,58 @@
+.login {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at top left, #1e293b, transparent 40%),
+    radial-gradient(circle at bottom right, #0f172a, transparent 40%),
+    #0b1120;
+}
+
+.login__title {
+    color: var(--text-primary);
+    text-align: center;
+    font-weight: 700;
+    font-size: 30px;
+}
+
+.login__form {
+    padding: 40px;
+    margin: 0px 20px;
+    width: 100%;
+    max-width: 430px;
+    min-width: 320px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(35px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    border-radius: 28px;
+}
+
+.login__form::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.05));
+    opacity: 0.25;
+    pointer-events: none;
+}
+
+.login__forget-password {
+    text-align: end;
+    text-decoration: none;
+    color: var(--color-accent-soft);    
+}
+.login__create-account-link {
+    text-align: center;
+    text-decoration: none;
+    color: var(--color-accent-soft);
+    font-weight: 700;    
+}
+
+.login__create-account-text {
+    text-align: center;
+    color: var(--text-secondary);
+}

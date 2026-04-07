@@ -15,18 +15,13 @@
 }
 
 .btn--primary {
-  background: #ff7a00;
-  color: white;
+  background: var(--color-primary);
+  color: var(--text-primary);
 }
 
 .btn--secondary {
   background: #ffffff;
   color: #000000;
-}
-
-.btn--primary {
-  background: #ff7a00;
-  color: white;
 }
 
 .btn--tertiary {

@@ -5,6 +5,26 @@
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+:root {
+  --bg-primary: #0B1120;
+  --bg-surface: #111827;
+  --bg-elevated: #1F2937;
+  --bg-sidebar: #0F172A;
+
+  --color-primary: #2563EB;
+  --color-accent: #10B981;
+  --color-accent-soft: #34D399;
+  --color-secondary: #0EA5A4;
+  --color-error: #e53935;
+
+  --text-primary: #F3F4F6;
+  --text-secondary: #9CA3AF;
+  --text-muted: #6B7280;
+
+  --border-color: #1E293B;
+  --hover: #1E293B;
+}
+
 body.dark {
   --bg-primary: #0B1120;
   --bg-surface: #111827;

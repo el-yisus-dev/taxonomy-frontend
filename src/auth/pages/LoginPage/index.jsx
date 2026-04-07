@@ -1,11 +1,11 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 import Button from "@shared/Button";
 import FormRow from "@shared/FormRow";
 import Input from "@shared/Input";
 
 import "./style.css";
-import { Link } from "react-router-dom";
 
 export const LoginPage = () => {
     
@@ -16,6 +16,9 @@ export const LoginPage = () => {
     return(
         <section className="login">
             <form className="login__form">
+                <FormRow>
+                    <h2 className="login__title">Iniciar sessión</h2>
+                </FormRow>
                 <FormRow>
                     <Input 
                         label="Identidicador"
@@ -30,18 +33,20 @@ export const LoginPage = () => {
                     />
                 </FormRow>
                 <FormRow colums={2}>
-                    <Link to="forget-password">
-                    ¿Olvidaste tu contraseña?
-                </Link>
+                    <Link to="forget-password" className="login__forget-password">
+                        <p className="login__forget-password">¿Olvidaste tu contraseña?</p>
+                    </Link>
                 </FormRow>
                 <FormRow>
                     <Button>Iniciar sessión</Button>
                 </FormRow>
                 <FormRow>
-                    <p>No tienes una cuenta</p>
-                    <Link to="/register">
-                        <p>Crea una</p>
-                    </Link>
+                    <p className="login__create-account-text">
+                        ¿No tienes una cuenta? 
+                        <Link to="/register" className="login__create-account-link">
+                            <span> Crea una</span>
+                        </Link>
+                    </p>
                 </FormRow>
             </form>
         </section>
