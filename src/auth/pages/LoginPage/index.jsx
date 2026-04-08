@@ -6,6 +6,7 @@ import FormRow from "@shared/FormRow";
 import Input from "@shared/Input";
 import Snackbar from "@shared/SnackBar";
 import { authPath } from "@shared/constants/paths";
+import { useSnackbar } from "@context/snackbar.context";
 
 import { login } from "../../services/auth.services";
 import { validateLogin } from "../../utils/auth";
@@ -18,29 +19,17 @@ export const LoginPage = () => {
         identifier: "",
         password: ""
     })
-    const [snackbar, setSnackbar] = useState({
-        open: false,
-        message: "",
-        type: "success",
-    });
+
     const [errors, setErrors] = useState({});
 
     const navigate = useNavigate();
-
+    const { showSnackbar } = useSnackbar();
 
     const handleChange = (field) => (e) => {
         setForm({ ...form, [field]: e.target.value });
         if (errors[field]) {
             setErrors({ ...errors, [field]: "" });
         }
-    };
-
-    const showSnackbar = (message, type = "success") => {
-        setSnackbar({
-            open: true,
-            message,
-            type,
-        });
     };
 
     const handleSubmit = async (e) => {
@@ -59,7 +48,8 @@ export const LoginPage = () => {
             
             const { accessToken, user } = res.data.data;
 
-            showSnackbar("Login exitoso 🔥", res.data.status);
+            // 🔥 aquí ya usas el global
+            showSnackbar("Login exitoso 🔥", "success");
 
             localStorage.setItem("token", accessToken);
             localStorage.setItem("user", JSON.stringify(user));
@@ -67,7 +57,9 @@ export const LoginPage = () => {
             navigate("/home");
 
         } catch (err) {
-            const message = err.response?.data?.message || "Error al iniciar sesión";
+            const message =
+            err.response?.data?.message || "Error al iniciar sesión";
+
             showSnackbar(message, "error");
         }
     };
@@ -122,14 +114,6 @@ export const LoginPage = () => {
                     </p>
                 </FormRow>
             </form>
-            <Snackbar
-                open={snackbar.open}
-                message={snackbar.message}
-                type={snackbar.type}
-                onClose={() =>
-                    setSnackbar((prev) => ({ ...prev, open: false }))
-                }
-            />
         </section>
     )
 }

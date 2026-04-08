@@ -7,6 +7,7 @@ export default defineConfig({
     alias: {
       '@': '/src',
       '@shared': '/src/shared',
+      '@context': '/src/context'
     }
   }
 })

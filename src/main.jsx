@@ -4,10 +4,15 @@ import { RouterProvider } from "react-router-dom";
 
 import router from "./router";
 
-import "./index.css"
+import { SnackbarProvider } from "@context/snackbar.context";
+
+
+import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <SnackbarProvider>
+      <RouterProvider router={router} />
+    </SnackbarProvider>
   </React.StrictMode>
 );
