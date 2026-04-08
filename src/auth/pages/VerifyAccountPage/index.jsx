@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { useSearchParams, Link, useNavigate } from "react-router-dom";
 
 import Button from "@shared/Button";
 import FormRow from "@shared/FormRow";
@@ -10,44 +10,60 @@ import { verifyAccount } from "../../services/auth.services";
 import "./style.css";
 
 export const VerifyEmailPage = () => {
-  const [searchParams] = useSearchParams();
-  
-  const token = searchParams.get("token");
+    const [searchParams] = useSearchParams();
 
-  const { showSnackbar } = useSnackbar();
+    const token = searchParams.get("token");
+    const navigate = useNavigate();
+
+    const { showSnackbar } = useSnackbar();
 
     const [status, setStatus] = useState(() => {
         return token ? "loading" : "error";
     });
 
-  useEffect(() => {
-        if (!token) return;
+    const hasRun = useRef(false);
 
-        (async () => {
-            try {
-            await verifyAccount(token)
-            setStatus("success");
-            } catch (err) {
-            setStatus("error");
+    useEffect(() => {
+    if (!token || hasRun.current) return;
 
-            const message =
-                err.response?.data?.message || "Token inválido o expirado";
+    hasRun.current = true;
 
-            showSnackbar(message, "error");
-            }
-        })()
+    (async () => {
+        try {
+        await verifyAccount(token);
+        setStatus("success");
+        } catch (err) {
+        setStatus("error");
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        const message =
+            err.response?.data?.message || "Token inválido o expirado";
+
+        showSnackbar(message, "error");
+        }
+    })();
     }, [token]);
 
+    useEffect(() => {
+        if (status === "success") {
+            setTimeout(() => {
+            navigate(authPath.login);
+            }, 2000);
+        }
+    }, [status]);
+    
     return (
     <section className="login">
       <div className="login__form">
 
         {status === "loading" && (
-          <FormRow>
-            <h2 className="login__title">Verificando...</h2>
-          </FormRow>
+          <>
+            <FormRow>
+                <h2 className="login__title">Verificando...</h2>
+            </FormRow>
+            <FormRow>
+                <p className="login__create-account-text">Esto puede tardar unos segundos</p>
+            </FormRow>
+            </>
         )}
 
 
@@ -85,9 +101,9 @@ export const VerifyEmailPage = () => {
             </FormRow>
 
             <FormRow>
-              <Button size="lg">
-                Reenviar correo
-              </Button>
+                <Button size="lg" onClick={() => showSnackbar("Pendiente implementar", "error")}>
+                    Reenviar correo
+                </Button>
             </FormRow>
 
             <FormRow>
