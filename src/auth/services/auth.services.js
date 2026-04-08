@@ -8,6 +8,10 @@ export const register = (data) => {
   return api.post("users", data);
 };
 
+export const verifyAccount = (token) => {
+  return api.get(`auth/verify-email?token=${token}`);
+}
+
 export const requestPasswordReset = (email) => {
   return api.post("auth/forgot-password", { email });
 };
