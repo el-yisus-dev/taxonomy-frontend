@@ -4,3 +4,17 @@
   width: 100%;
   margin-bottom: 16px;
 }
+
+.form-row--1 {
+  grid-template-columns: 1fr;
+}
+
+.form-row--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 425px) {
+  .form-row--2 {
+    grid-template-columns: 1fr;
+  }
+}
