@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import Button from "@shared/Button";
 import FormRow from "@shared/FormRow";
@@ -24,14 +24,7 @@ export const LoginPage = () => {
 
     const navigate = useNavigate();
     const { showSnackbar } = useSnackbar();
-    const location = useLocation();
     const { login: loginUser } = useAuth();
-    
-    useEffect(() => {
-    if (location.state?.message) {
-        showSnackbar(location.state.message, location.state.type);
-    }
-    }, [location.state]);
     
     const handleChange = (field) => (e) => {
         setForm({ ...form, [field]: e.target.value });
@@ -116,7 +109,7 @@ export const LoginPage = () => {
                     <p className="login__create-account-text">
                         ¿No tienes una cuenta? 
                         <Link to={authPath.register} className="login__create-account-link">
-                            <span> Crea una</span>
+                            <span> Crear una</span>
                         </Link>
                     </p>
                 </FormRow>
