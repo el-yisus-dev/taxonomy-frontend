@@ -1,7 +1,4 @@
-import { configDotenv } from "dotenv";
-
-configDotenv();
 
 export const config = {
-  BASE_URL: process.env.BASE_URL || "",
+  BASE_URL: "http://localhost:9222/api/v1/"
 }
