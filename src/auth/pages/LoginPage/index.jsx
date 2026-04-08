@@ -4,9 +4,9 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import Button from "@shared/Button";
 import FormRow from "@shared/FormRow";
 import Input from "@shared/Input";
-import Snackbar from "@shared/SnackBar";
 import { authPath } from "@shared/constants/paths";
 import { useSnackbar } from "@context/snackbar.context";
+import { useAuth } from "@context/auth.context";
 
 import { login } from "../../services/auth.services";
 import { validateLogin } from "../../utils/auth";
@@ -24,6 +24,7 @@ export const LoginPage = () => {
 
     const navigate = useNavigate();
     const { showSnackbar } = useSnackbar();
+    const { login: loginUser } = useAuth();
 
     const handleChange = (field) => (e) => {
         setForm({ ...form, [field]: e.target.value });
@@ -36,6 +37,7 @@ export const LoginPage = () => {
         e.preventDefault();
 
         const validationErrors = validateLogin(form);
+        
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
             return;
@@ -45,14 +47,12 @@ export const LoginPage = () => {
 
         try {
             const res = await login(form);
-            
+
             const { accessToken, user } = res.data.data;
 
-            // 🔥 aquí ya usas el global
-            showSnackbar("Login exitoso 🔥", "success");
+            loginUser(user, accessToken);
 
-            localStorage.setItem("token", accessToken);
-            localStorage.setItem("user", JSON.stringify(user));
+            showSnackbar("Login exitoso 🔥", "success");
 
             navigate("/home");
 
