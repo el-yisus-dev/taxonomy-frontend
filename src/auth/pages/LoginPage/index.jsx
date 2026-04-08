@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 import Button from "@shared/Button";
 import FormRow from "@shared/FormRow";
 import Input from "@shared/Input";
-import { authPath } from "@shared/constants/paths";
+import { authPath, taxonsPath } from "@shared/constants/paths";
 import { useSnackbar } from "@context/snackbar.context";
 import { useAuth } from "@context/auth.context";
 
@@ -24,8 +24,15 @@ export const LoginPage = () => {
 
     const navigate = useNavigate();
     const { showSnackbar } = useSnackbar();
+    const location = useLocation();
     const { login: loginUser } = useAuth();
-
+    
+    useEffect(() => {
+    if (location.state?.message) {
+        showSnackbar(location.state.message, location.state.type);
+    }
+    }, [location.state]);
+    
     const handleChange = (field) => (e) => {
         setForm({ ...form, [field]: e.target.value });
         if (errors[field]) {
@@ -54,7 +61,7 @@ export const LoginPage = () => {
 
             showSnackbar("Login exitoso 🔥", "success");
 
-            navigate("/home");
+            navigate(taxonsPath.home);
 
         } catch (err) {
             const message =

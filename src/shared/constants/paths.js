@@ -4,6 +4,6 @@ export const authPath = {
     forgetPassword: "/forget-password"
 }
 
-export const dashboardPath = {
-
+export const taxonsPath = {
+    home: "/home"
 }
