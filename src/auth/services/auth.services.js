@@ -11,6 +11,9 @@ export const register = (data) => {
 export const verifyAccount = (token) => {
   return api.get(`auth/verify-email?token=${token}`);
 }
+export const resendVerification = (data) => {
+  return api.post("auth/resend-verification", data)
+}
 
 export const requestPasswordReset = (email) => {
   return api.post("auth/forgot-password", { email });

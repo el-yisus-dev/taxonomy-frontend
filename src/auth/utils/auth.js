@@ -1,4 +1,4 @@
-export function validateLogin(form) {
+export const validateLogin = (form) => {
   const newErrors = {};
 
   if (!form.identifier.trim()) {
@@ -12,7 +12,7 @@ export function validateLogin(form) {
   return newErrors;
 }
 
-export function validateRegister(form) {
+export const validateRegister = (form) => {
   const errors = {};
 
   if (!form.name.trim()) {
@@ -43,3 +43,17 @@ export function validateRegister(form) {
 
   return errors;
 }
+
+export const validateEmail = (form) => {
+  const newErrors = {};
+
+  if (!form.email.trim()) {
+    newErrors.email = "Email obligatorio";
+  }
+
+  if (!/\S+@\S+\.\S+/.test(form.email)) {
+    newErrors.email = "Email inválido";
+  }
+
+  return newErrors
+} 

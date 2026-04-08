@@ -52,7 +52,7 @@ export const LoginPage = () => {
 
             loginUser(user, accessToken);
 
-            showSnackbar("Login exitoso 🔥", "success");
+            showSnackbar("Login exitoso", "success");
 
             navigate(taxonsPath.home);
 

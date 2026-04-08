@@ -66,7 +66,6 @@ export const ResetPasswordPage = () => {
           </>
         )}
 
-        {/* STEP 2 → OTP + PASSWORD */}
         {step === 2 && (
           <>
             <FormRow>
