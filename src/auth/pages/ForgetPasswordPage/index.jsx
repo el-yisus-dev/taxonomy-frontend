@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Button from "@shared/Button";
 import FormRow from "@shared/FormRow";
@@ -27,7 +27,6 @@ export const ResetPasswordPage = () => {
     code: "",
     password: "",
   });
-  const navigate = useNavigation()
   const [errors, setErrors] = useState({});
 
   const handleChange = (field) => (value) => {
@@ -56,7 +55,7 @@ export const ResetPasswordPage = () => {
       
       const response = await requestPasswordReset(form.email);
       showSnackbar(response.data.message, "success");
-      setTimeout(() => navigate(authPath.login), 2000);
+      setStep(2)
 
     } catch (err) {
       const message =
