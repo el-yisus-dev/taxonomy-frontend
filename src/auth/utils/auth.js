@@ -57,3 +57,17 @@ export const validateEmail = (form) => {
 
   return newErrors
 } 
+
+export const validateUpdatePassword = (form) => {
+  const newErrors = {};
+
+  if (!form.code) {
+      newErrors.code = "El código es requerido";
+    }
+
+  if (!form.password || form.password.length < 6) {
+      newErrors.password = "Mínimo 6 caracteres";
+  }
+
+  return newErrors;
+}
