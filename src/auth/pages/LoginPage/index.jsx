@@ -57,9 +57,7 @@ export const LoginPage = () => {
             navigate(taxonsPath.home);
 
         } catch (err) {
-            const message =
-            err.response?.data?.message || "Error al iniciar sesión";
-
+            const message = err.response?.data?.message || "Error al iniciar sesión";
             showSnackbar(message, "error");
         }
     };

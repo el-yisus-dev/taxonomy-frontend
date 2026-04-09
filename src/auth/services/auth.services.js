@@ -9,18 +9,18 @@ export const register = (data) => {
 };
 
 export const verifyAccount = (token) => {
-  return api.get(`auth/verify-email?token=${token}`);
+  return api.get(`auth/email-verification/confirm?token=${token}`);
 }
 export const resendVerification = (data) => {
-  return api.post("auth/resend-verification", data)
+  return api.post("auth/email-verification/resend", data)
 }
 
 export const requestPasswordReset = (email) => {
-  return api.post("auth/forgot-password", { email });
+  return api.post("auth/password-reset/request", { email });
 };
 
 export const resetPassword = ({ code, password, email }) => {
-  return api.post("auth/reset-password", {
+  return api.post("auth/password-reset/confirm", {
     code,
     password,
     email,

@@ -50,7 +50,6 @@ export const VerifyEmailPage = () => {
 
         try {
             const response = await resendVerification(form);
-            console.log(response)
             showSnackbar(response.data.message, "success");
             setStep(2);
 
