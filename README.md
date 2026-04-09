@@ -1,16 +1,101 @@
-# React + Vite
+# 🌿 Taxonomy Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend for the **Taxonomy** platform — a web application focused on managing, exploring, and validating biological taxons.
 
-Currently, two official plugins are available:
+Built with **React + Vite**, following a **feature-based architecture** to ensure scalability and maintainability.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🚀 Tech Stack
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- React
+- Vite
+- React Router DOM
+- Context API (state management)
+- Axios (HTTP client)
+- CSS (component-scoped styles)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🧠 Architecture
+
+This project follows a **feature-based architecture**, organizing code by domain instead of technical type.
+
+### 📂 Project Structure
+
+```bash
+    src/
+│
+├── auth/ # Authentication feature
+│ ├── components/ # Feature-specific components (e.g. OTPInput)
+│ ├── pages/ # Pages (Login, Register, Verify, etc.)
+│ ├── services/ # API calls related to auth
+│ └── utils/ # Validation and helpers
+│
+├── taxa/ # Taxa feature
+│ ├── components/
+│ └── pages/
+│
+├── shared/ # Reusable UI components
+│ ├── Button/
+│ ├── Input/
+│ ├── FormRow/
+│ ├── Card/
+│ ├── SnackBar/
+│ └── ProtectedRoute/
+│
+├── context/ # Global state (Auth, Snackbar)
+│
+├── services/ # API base configuration (axios instance)
+│
+├── config/ # App configuration
+│
+├── router.jsx # Routes definition
+├── main.jsx # Entry point
+└── index.css # Global styles
+```
+
+---
+
+## 🔐 Authentication
+
+Includes a complete authentication flow:
+
+- User registration
+- Login
+- Email verification
+- Resend verification email
+- Password recovery (OTP + reset)
+
+Error handling follows a consistent pattern:
+
+- Local validation
+- API error handling
+- Global feedback via Snackbar
+
+---
+
+## 📡 API Communication
+
+Uses a centralized Axios instance (`services/api.js`).
+
+Example:
+
+```js
+api.post("auth/login", data);
+```
+## 🎨 UI & UX
+- Reusable UI components (shared/)
+- Consistent form error handling
+- Snackbar-based user feedback
+- Step-based flows (e.g. verification, password reset)
+
+## Clone the repository
+```
+git clone https://github.com/el-yisus-dev/taxonomy-frontend
+```
+
+## Install dependencies
+``` npm install ```
+## Run development server
+``` npm run dev ```
