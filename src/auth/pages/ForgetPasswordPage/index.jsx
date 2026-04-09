@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigation } from "react-router-dom";
 
 import Button from "@shared/Button";
 import FormRow from "@shared/FormRow";
@@ -21,7 +21,7 @@ export const ResetPasswordPage = () => {
   const [step, setStep] = useState(1);
 
   const { showSnackbar } = useSnackbar();
-
+  const navigate = useNavigation()
   const [form, setForm] = useState({
     email: "",
     code: "",
@@ -81,7 +81,7 @@ export const ResetPasswordPage = () => {
 
       showSnackbar(response.data.message, "success");
 
-      setStep(1);
+      navigate(authPath.login);
       setForm({ email: "", code: "", password: "" });
     } catch (err) {
       const message =
