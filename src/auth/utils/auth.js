@@ -5,10 +5,8 @@ export const validateLogin = (form) => {
 
   if (!identifier) newErrors.identifier = "Nombre de usuario o email obligatorio";
     
-  if (identifier.includes(".com") && !identifier.includes("@")) newErrors.identifier = "Email inválido";
-  if (identifier.includes("@") && !identifier.includes(".com")) newErrors.identifier = "Email inválido";
+  if ((identifier.includes(".com") && !identifier.includes("@")) || (identifier.includes("@") && !identifier.includes(".com"))) newErrors.identifier = "Email inválido";
     
-
   if (!form.password.trim()) {
     newErrors.password = "La contraseña es obligatoria";
   }
