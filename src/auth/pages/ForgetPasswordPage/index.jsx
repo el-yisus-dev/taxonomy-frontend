@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Button from "@shared/Button";
 import FormRow from "@shared/FormRow";
@@ -7,6 +7,7 @@ import Input from "@shared/Input";
 import OTPInput from "../../components/OTPInput";
 import { authPath } from "@shared/constants/paths.js";
 import { useSnackbar } from "@context/snackbar.context";
+import { useTheme } from "@context/darkLighit.context";
 
 import {
   requestPasswordReset,
@@ -21,13 +22,14 @@ export const ResetPasswordPage = () => {
   const [step, setStep] = useState(1);
 
   const { showSnackbar } = useSnackbar();
+  const { darkMode, toggleTheme } = useTheme();
 
   const [form, setForm] = useState({
     email: "",
     code: "",
     password: "",
   });
-  const navigate = useNavigation()
+  const navigate = useNavigate();
   const [errors, setErrors] = useState({});
 
   const handleChange = (field) => (value) => {
@@ -94,6 +96,20 @@ export const ResetPasswordPage = () => {
 
   return (
     <section className="login">
+      {/* Switch de tema */}
+      <div className="theme-toggle">
+          <i className='bx bx-sun'></i>
+          <label className="switch">
+              <input 
+                  type="checkbox" 
+                  checked={darkMode}
+                  onChange={toggleTheme}
+              />
+              <span className="slider"></span>
+          </label>
+          <i className='bx bx-moon'></i>
+      </div>
+
       <form className="login__form">
 
         <FormRow>

@@ -6,16 +6,18 @@ import router from "./router";
 
 import { SnackbarProvider } from "@context/snackbar.context";
 import { AuthProvider } from "@context/auth.context";
-
+import { ThemeProvider } from "@context/darkLighit.context"; 
 
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthProvider>
-      <SnackbarProvider>
-        <RouterProvider router={router} />
-      </SnackbarProvider>
-    </AuthProvider>
+    <ThemeProvider> 
+      <AuthProvider>
+        <SnackbarProvider>
+          <RouterProvider router={router} />
+        </SnackbarProvider>
+      </AuthProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );

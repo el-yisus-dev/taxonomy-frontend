@@ -7,6 +7,7 @@ import Input from "@shared/Input";
 import { authPath, taxonsPath } from "@shared/constants/paths";
 import { useSnackbar } from "@context/snackbar.context";
 import { useAuth } from "@context/auth.context";
+import { useTheme } from "@context/darkLighit.context"; 
 
 import { login } from "../../services/auth.services";
 import { validateLogin } from "../../utils/auth";
@@ -25,6 +26,7 @@ export const LoginPage = () => {
     const navigate = useNavigate();
     const { showSnackbar } = useSnackbar();
     const { login: loginUser } = useAuth();
+    const { darkMode, toggleTheme } = useTheme(); 
     
     const handleChange = (field) => (e) => {
         setForm({ ...form, [field]: e.target.value });
@@ -64,16 +66,29 @@ export const LoginPage = () => {
 
     return(
         <section className="login">
+            <div className="theme-toggle">
+                <i className='bx bx-sun'></i>
+                <label className="switch">
+                    <input 
+                        type="checkbox" 
+                        checked={darkMode}
+                        onChange={toggleTheme}
+                    />
+                    <span className="slider"></span>
+                </label>
+                <i className='bx bx-moon'></i>
+            </div>
+
             <form
-            className="login__form"
-            onSubmit={handleSubmit}
+                className="login__form"
+                onSubmit={handleSubmit}
             >               
                 <FormRow>
                     <h2 className="login__title">Iniciar sessión</h2>
                 </FormRow>
                 <FormRow>
                     <Input 
-                        label="Identificador"
+                        label="Correo"
                         placeholder="Correo o nombre de usuario"
                         value={form.identifier}
                         onChange={handleChange("identifier")}

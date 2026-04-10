@@ -6,6 +6,7 @@ import Button from "@shared/Button";
 import FormRow from "@shared/FormRow";
 import Input from "@shared/Input";
 import { useSnackbar } from "@context/snackbar.context";
+import { useTheme } from "@context/darkLighit.context";
 import { authPath } from "@shared/constants/paths";
 
 import { resendVerification, verifyAccount } from "../../services/auth.services";
@@ -18,6 +19,7 @@ export const VerifyEmailPage = () => {
 
     const navigate = useNavigate();
     const { showSnackbar } = useSnackbar();
+    const { darkMode, toggleTheme } = useTheme();
     const hasRun = useRef(false);
 
     const [status, setStatus] = useState(() => {
@@ -90,6 +92,20 @@ export const VerifyEmailPage = () => {
 
   return (
     <section className="login">
+      {/* Switch de tema */}
+      <div className="theme-toggle">
+          <i className='bx bx-sun'></i>
+          <label className="switch">
+              <input 
+                  type="checkbox" 
+                  checked={darkMode}
+                  onChange={toggleTheme}
+              />
+              <span className="slider"></span>
+          </label>
+          <i className='bx bx-moon'></i>
+      </div>
+
       <div className="login__form">
 
         {status === "loading" && (
