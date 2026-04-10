@@ -4,6 +4,8 @@ import { LoginPage } from "./auth/pages/LoginPage";
 import { ResetPasswordPage } from "./auth/pages/ForgetPasswordPage";
 import { RegisterPage } from "./auth/pages/RegisterPage";
 import { VerifyEmailPage } from "./auth/pages/VerifyAccountPage";
+import { Home } from "./taxa/pages/home";
+import ProtectedRoute from "@shared/ProtectedRoute"
 
 const router = createBrowserRouter([
     {
@@ -24,7 +26,11 @@ const router = createBrowserRouter([
     },
     {
         path: "/home",
-        element: <RegisterPage />
+        element:  (
+            <ProtectedRoute>
+               <Home />
+            </ProtectedRoute>
+        )
     }
 ])
 

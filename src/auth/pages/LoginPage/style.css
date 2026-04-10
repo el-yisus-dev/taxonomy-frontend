@@ -1,3 +1,5 @@
+/* src/auth/pages/LoginPage/style.css */
+
 .login {
     width: 100%;
     min-height: 100vh;
@@ -5,9 +7,22 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
+}
+
+/* Modo oscuro - Mantiene el estilo actual */
+body.dark .login {
     background: radial-gradient(circle at top left, #1e293b, transparent 40%),
-    radial-gradient(circle at bottom right, #0f172a, transparent 40%),
-    #0b1120;
+                radial-gradient(circle at bottom right, #0f172a, transparent 40%),
+                var(--bg-primary);
+}
+
+/* Modo claro - LIQUID GLASS como lo pediste */
+body.light .login {
+    background:
+        radial-gradient(circle at top left, #bfdbfe, transparent 40%),
+        radial-gradient(circle at bottom right, #e0f2fe, transparent 40%),
+        linear-gradient(135deg, #dbeafe, #f0f9ff);
 }
 
 .login__title {
@@ -17,20 +32,31 @@
     font-size: 30px;
 }
 
+/* ============================================
+   LIQUID GLASS FORM - Estilo principal
+   ============================================ */
+
 .login__form {
     padding: 40px;
     margin: 0px 20px;
     width: 100%;
     max-width: 430px;
     min-width: 320px;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(35px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
     border-radius: 28px;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
-.login__form::before {
+/* MODO OSCURO - Form actual */
+body.dark .login__form {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(35px) saturate(180%);
+    -webkit-backdrop-filter: blur(35px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+body.dark .login__form::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -40,19 +66,257 @@
     pointer-events: none;
 }
 
+/* MODO CLARO - LIQUID GLASS exactamente como lo pediste */
+body.light .login__form {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(35px) saturate(180%);
+    -webkit-backdrop-filter: blur(35px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Efecto adicional para el modo claro */
+body.light .login__form::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.1));
+    opacity: 0.3;
+    pointer-events: none;
+}
+
 .login__forget-password {
     text-align: end;
     text-decoration: none;
-    color: var(--color-accent-soft);    
+    color: var(--color-accent-soft);
+    transition: opacity 0.2s ease;
 }
+
+.login__forget-password:hover {
+    opacity: 0.8;
+}
+
 .login__create-account-link {
     text-align: center;
     text-decoration: none;
     color: var(--color-accent-soft);
-    font-weight: 700;    
+    font-weight: 700;
+    transition: opacity 0.2s ease;
+}
+
+.login__create-account-link:hover {
+    opacity: 0.8;
 }
 
 .login__create-account-text {
     text-align: center;
     color: var(--text-secondary);
+}
+
+/* ============================================
+   THEME TOGGLE SWITCH
+   ============================================ */
+
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 16px;
+    border-radius: 40px;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+
+/* MODO OSCURO - Switch */
+body.dark .theme-toggle {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* MODO CLARO - Switch Liquid Glass */
+body.light .theme-toggle {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(35px) saturate(180%);
+    -webkit-backdrop-filter: blur(35px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.theme-toggle i,
+.theme-toggle span {
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+body.dark .theme-toggle i,
+body.dark .theme-toggle span {
+    color: var(--text-primary);
+}
+
+body.light .theme-toggle i,
+body.light .theme-toggle span {
+    color: #0F172A;
+}
+
+/* Switch personalizado */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 52px;
+    height: 26px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transition: 0.3s;
+    border-radius: 34px;
+}
+
+/* MODO OSCURO - Slider */
+body.dark .slider {
+    background-color: var(--border-color);
+}
+
+/* MODO CLARO - Slider */
+body.light .slider {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 3px;
+    bottom: 3px;
+    transition: 0.3s;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+body.dark .slider:before {
+    background-color: var(--bg-surface);
+}
+
+body.light .slider:before {
+    background-color: #ffffff;
+}
+
+/* Color del slider cuando está activado */
+body.dark input:checked + .slider {
+    background-color: var(--color-primary);
+}
+
+body.light input:checked + .slider {
+    background-color: var(--color-primary);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Efectos hover */
+.switch:hover .slider:before {
+    transform: scale(1.1);
+}
+
+input:checked + .slider:hover:before {
+    transform: translateX(26px) scale(1.1);
+}
+
+/* Focus para accesibilidad */
+.switch input:focus + .slider {
+    box-shadow: 0 0 1px var(--color-primary);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+    .login__form {
+        padding: 30px 20px;
+        margin: 0px 16px;
+    }
+    
+    .login__title {
+        font-size: 24px;
+    }
+    
+    .theme-toggle {
+        top: 16px;
+        right: 16px;
+        padding: 6px 12px;
+        gap: 8px;
+    }
+    
+    .theme-toggle i,
+    .theme-toggle span {
+        font-size: 18px;
+    }
+    
+    .switch {
+        width: 46px;
+        height: 24px;
+    }
+    
+    .slider:before {
+        height: 18px;
+        width: 18px;
+    }
+    
+    input:checked + .slider:before {
+        transform: translateX(22px);
+    }
+}
+
+@media (max-width: 480px) {
+    .login__form {
+        padding: 24px 16px;
+    }
+    
+    .theme-toggle {
+        top: 12px;
+        right: 12px;
+        padding: 4px 10px;
+        gap: 6px;
+    }
+    
+    .theme-toggle i,
+    .theme-toggle span {
+        font-size: 16px;
+    }
+    
+    .switch {
+        width: 40px;
+        height: 20px;
+    }
+    
+    .slider:before {
+        height: 14px;
+        width: 14px;
+        left: 3px;
+        bottom: 3px;
+    }
+    
+    input:checked + .slider:before {
+        transform: translateX(20px);
+    }
 }

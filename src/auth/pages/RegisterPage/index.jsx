@@ -8,6 +8,7 @@ import { authPath } from "../../../shared/constants/paths";
 
 import { register } from "../../services/auth.services";
 import { useSnackbar } from "@context/snackbar.context";
+import { useTheme } from "@context/darkLighit.context";
 
 import "./style.css";
 import { validateRegister } from "../../utils/auth";
@@ -24,6 +25,7 @@ export const RegisterPage = () => {
     });
     
     const { showSnackbar } = useSnackbar();
+    const { darkMode, toggleTheme } = useTheme();
     
     const  [errors, setErrors] = useState({});
     const [step, setStep] = useState(1);
@@ -71,6 +73,20 @@ export const RegisterPage = () => {
 
     return(
         <section className="login register">
+            {/* Switch de tema en la parte superior derecha - MISMO ESTILO QUE LOGIN */}
+            <div className="theme-toggle">
+                <i className='bx bx-sun'></i>
+                <label className="switch">
+                    <input 
+                        type="checkbox" 
+                        checked={darkMode}
+                        onChange={toggleTheme}
+                    />
+                    <span className="slider"></span>
+                </label>
+                <i className='bx bx-moon'></i>
+            </div>
+
             {step === 1 ? (
                 <form className="register__form" onSubmit={handleSubmit}>                
                     <FormRow>
@@ -79,7 +95,7 @@ export const RegisterPage = () => {
                     <FormRow columns={2}>
                         <Input 
                             label="Nombre"
-                            placeholder="Juan papas"
+                            placeholder="Tu Nombre"
                             value={form.name}
                             onChange={handleChange("name")}
                             error={errors.name}
@@ -95,7 +111,7 @@ export const RegisterPage = () => {
                     <FormRow>
                         <Input 
                             label="Nombre de usuario"
-                            placeholder="pepe_picas_xd"
+                            placeholder="Usuario"
                             value={form.username}
                             onChange={handleChange("username")}
                             error={errors.username}
@@ -134,34 +150,34 @@ export const RegisterPage = () => {
                         <p className="login__create-account-text">
                             ¿Tienes una cuenta? 
                             <Link to={authPath.login} className="login__create-account-link">
-                                <span> Inicia sessión</span>
+                                <span> Inicia sesión</span>
                             </Link>
                         </p>
                     </FormRow>
                 </form>
             ) : (
-                  <div className="register__form">
+                <div className="register__form">
                     <FormRow>
-                    <h2 className="login__title">Verifica tu correo</h2>
+                        <h2 className="login__title">Verifica tu correo</h2>
                     </FormRow>
 
                     <FormRow>
-                    <p className="login__create-account-text">
-                        Te enviamos un enlace de verificación al correo: <strong>{form.email}</strong>.
-                        Por favor revisa tu bandeja de entrada.
-                    </p>
+                        <p className="login__create-account-text">
+                            Te enviamos un enlace de verificación al correo: <strong>{form.email}</strong>.
+                            Por favor revisa tu bandeja de entrada.
+                        </p>
                     </FormRow>
 
                     <FormRow>
-                    <Link
-                        to={authPath.login}
-                        className="login__create-account-link"
-                    >
-                        Ir a iniciar sesión
-                    </Link>
+                        <Link
+                            to={authPath.login}
+                            className="login__create-account-link"
+                        >
+                            Ir a iniciar sesión
+                        </Link>
                     </FormRow>
                 </div>
-                )}
+            )}
         </section>
     );
-}
+};

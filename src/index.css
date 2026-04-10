@@ -62,3 +62,83 @@ body.light {
   --border-color: #E2E8F0;
   --hover: #E2E8F0;
 }
+
+
+/* Aplicar variables globalmente */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+/* Ejemplos de cómo usar las variables en tus componentes */
+.login {
+  background-color: var(--bg-primary);
+}
+
+.login__form {
+  background-color: var(--bg-surface);
+  border-color: var(--border-color);
+}
+
+.login__title {
+  color: var(--text-primary);
+}
+
+input, button {
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Theme overlay para transición suave */
+.theme-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity; /* Optimiza el rendimiento */
+}
+
+.theme-overlay.active {
+    opacity: 1;
+}
+
+/* Optimización para transiciones */
+body {
+    will-change: background-color;
+}
+
+/* Reduce el número de elementos que transicionan */
+body * {
+    transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Elementos específicos que necesitan transición más larga */
+.login__form,
+.theme-toggle {
+    transition: background-color 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                backdrop-filter 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes themeFade {
+    0% {
+        opacity: 0.8;
+    }
+    100% {
+        opacity: 1;
+    }
+}
