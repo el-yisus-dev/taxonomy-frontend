@@ -1,132 +1,132 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+    import { useState } from "react";
+    import { Link, useNavigate } from "react-router-dom";
 
-import Button from "@shared/Button";
-import FormRow from "@shared/FormRow";
-import Input from "@shared/Input";
-import { authPath, taxonsPath } from "@shared/constants/paths";
-import { useSnackbar } from "@context/snackbar.context";
-import { useAuth } from "@context/auth.context";
-import { useTheme } from "@context/darkLighit.context"; 
+    import Button from "@shared/Button";
+    import FormRow from "@shared/FormRow";
+    import Input from "@shared/Input";
+    import { authPath, taxonsPath } from "@shared/constants/paths";
+    import { useSnackbar } from "@context/snackbar.context";
+    import { useAuth } from "@context/auth.context";
+    import { useTheme } from "@context/darkLighit.context"; 
 
-import { login } from "../../services/auth.services";
-import { validateLogin } from "../../utils/auth";
+    import { login } from "../../services/auth.services";
+    import { validateLogin } from "../../utils/auth";
 
-import "./style.css";
+    import "./style.css";
 
-export const LoginPage = () => {
-    
-    const [form, setForm] = useState({
-        identifier: "",
-        password: ""
-    })
-
-    const [errors, setErrors] = useState({});
-
-    const navigate = useNavigate();
-    const { showSnackbar } = useSnackbar();
-    const { login: loginUser } = useAuth();
-    const { darkMode, toggleTheme } = useTheme(); 
-    
-    const handleChange = (field) => (e) => {
-        setForm({ ...form, [field]: e.target.value });
-        if (errors[field]) {
-            setErrors({ ...errors, [field]: "" });
-        }
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        const validationErrors = validateLogin(form);
+    export const LoginPage = () => {
         
-        if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
-            return;
-        }
+        const [form, setForm] = useState({
+            identifier: "",
+            password: ""
+        })
 
-        setErrors({});
+        const [errors, setErrors] = useState({});
 
-        try {
-            const res = await login(form);
+        const navigate = useNavigate();
+        const { showSnackbar } = useSnackbar();
+        const { login: loginUser } = useAuth();
+        const { darkMode, toggleTheme } = useTheme(); 
+        
+        const handleChange = (field) => (e) => {
+            setForm({ ...form, [field]: e.target.value });
+            if (errors[field]) {
+                setErrors({ ...errors, [field]: "" });
+            }
+        };
 
-            const { accessToken, user } = res.data.data;
+        const handleSubmit = async (e) => {
+            e.preventDefault();
 
-            loginUser(user, accessToken);
+            const validationErrors = validateLogin(form);
+            
+            if (Object.keys(validationErrors).length > 0) {
+                setErrors(validationErrors);
+                return;
+            }
 
-            showSnackbar("Login exitoso", "success");
+            setErrors({});
 
-            navigate(taxonsPath.home);
+            try {
+                const res = await login(form);
 
-        } catch (err) {
-            const message = err.response?.data?.message || "Error al iniciar sesión";
-            showSnackbar(message, "error");
-        }
-    };
+                const { accessToken, user } = res.data.data;
 
-    return(
-        <section className="login">
-            <div className="theme-toggle">
-                <i className='bx bx-sun'></i>
-                <label className="switch">
-                    <input 
-                        type="checkbox" 
-                        checked={darkMode}
-                        onChange={toggleTheme}
-                    />
-                    <span className="slider"></span>
-                </label>
-                <i className='bx bx-moon'></i>
-            </div>
+                loginUser(user, accessToken);
 
-            <form
-                className="login__form"
-                onSubmit={handleSubmit}
-            >               
-                <FormRow>
-                    <h2 className="login__title">Iniciar sessión</h2>
-                </FormRow>
-                <FormRow>
-                    <Input 
-                        label="Correo"
-                        placeholder="Correo o nombre de usuario"
-                        value={form.identifier}
-                        onChange={handleChange("identifier")}
-                        error={errors.identifier}
-                    />
-                    
-                </FormRow>
+                showSnackbar("Login exitoso", "success");
 
-                <FormRow>
-                    <Input 
-                        label="Contraseña"
-                        placeholder="*******"
-                        type="password"
-                        value={form.password}
-                        onChange={handleChange("password")}
-                        error={errors.password}
+                navigate(taxonsPath.home);
 
-                    />
-                </FormRow>
-                <FormRow colums={2}>
-                    <Link to={authPath.forgetPassword} className="login__forget-password">
-                        <p className="login__forget-password">¿Olvidaste tu contraseña?</p>
-                    </Link>
-                </FormRow>
-                <FormRow>
-                    <Button size="lg" type="submit">
-                        Iniciar sessión
-                    </Button>                
-                </FormRow>
-                <FormRow>
-                    <p className="login__create-account-text">
-                        ¿No tienes una cuenta? 
-                        <Link to={authPath.register} className="login__create-account-link">
-                            <span> Crear una</span>
+            } catch (err) {
+                const message = err.response?.data?.message || "Error al iniciar sesión";
+                showSnackbar(message, "error");
+            }
+        };
+
+        return(
+            <section className="login">
+                <div className="theme-toggle">
+                    <i className='bx bx-sun'></i>
+                    <label className="switch">
+                        <input 
+                            type="checkbox" 
+                            checked={darkMode}
+                            onChange={toggleTheme}
+                        />
+                        <span className="slider"></span>
+                    </label>
+                    <i className='bx bx-moon'></i>
+                </div>
+
+                <form
+                    className="login__form"
+                    onSubmit={handleSubmit}
+                >               
+                    <FormRow>
+                        <h2 className="login__title">Iniciar sessión</h2>
+                    </FormRow>
+                    <FormRow>
+                        <Input 
+                            label="Correo"
+                            placeholder="Correo o nombre de usuario"
+                            value={form.identifier}
+                            onChange={handleChange("identifier")}
+                            error={errors.identifier}
+                        />
+                        
+                    </FormRow>
+
+                    <FormRow>
+                        <Input 
+                            label="Contraseña"
+                            placeholder="*******"
+                            type="password"
+                            value={form.password}
+                            onChange={handleChange("password")}
+                            error={errors.password}
+
+                        />
+                    </FormRow>
+                    <FormRow colums={2}>
+                        <Link to={authPath.forgetPassword} className="login__forget-password">
+                            <p className="login__forget-password">¿Olvidaste tu contraseña?</p>
                         </Link>
-                    </p>
-                </FormRow>
-            </form>
-        </section>
-    )
-}
+                    </FormRow>
+                    <FormRow>
+                        <Button size="lg" type="submit">
+                            Iniciar sessión
+                        </Button>                
+                    </FormRow>
+                    <FormRow>
+                        <p className="login__create-account-text">
+                            ¿No tienes una cuenta? 
+                            <Link to={authPath.register} className="login__create-account-link">
+                                <span> Crear una</span>
+                            </Link>
+                        </p>
+                    </FormRow>
+                </form>
+            </section>
+        )
+    }
