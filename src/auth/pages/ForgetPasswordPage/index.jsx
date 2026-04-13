@@ -58,8 +58,7 @@ export const ResetPasswordPage = () => {
       
       const response = await requestPasswordReset(form.email);
       showSnackbar(response.data.message, "success");
-      setTimeout(() => navigate(authPath.login), 2000);
-
+      setStep(2);
     } catch (err) {
       const message =
       err.response?.data?.message || "Error al enviar el código";
@@ -83,9 +82,9 @@ export const ResetPasswordPage = () => {
       const response = await resetPassword(form);
 
       showSnackbar(response.data.message, "success");
-
-      setStep(1);
       setForm({ email: "", code: "", password: "" });
+      navigate(authPath.login);
+      
     } catch (err) {
       const message =
         err.response?.data?.message || "Error al actualizar contraseña";

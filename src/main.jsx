@@ -7,7 +7,6 @@ import router from "./router";
 import { SnackbarProvider } from "@context/snackbar.context";
 import { AuthProvider } from "@context/auth.context";
 import { ThemeProvider } from "@context/darkLighit.context"; 
-import "@fortawesome/fontawesome-free/css/all.min.css";
 
 import "./index.css";
 
