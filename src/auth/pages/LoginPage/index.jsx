@@ -40,6 +40,8 @@
 
             const validationErrors = validateLogin(form);
             
+            console.log(validationErrors);
+
             if (Object.keys(validationErrors).length > 0) {
                 setErrors(validationErrors);
                 return;
