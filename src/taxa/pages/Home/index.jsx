@@ -1,5 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { Menu } from '@boxicons/react';
+
+
 import { useAuth } from "@context/auth.context";
 import { useSnackbar } from "@context/snackbar.context";
 import { useTheme } from "@context/darkLighit.context";
@@ -31,10 +34,6 @@ export const Home = () => {
             { species: "Mono Araña", location: "Chiapas", date: "2024-01-13", photo: false }
         ]
     });
-
-    useEffect(() => {
-        console.log("Home cargado correctamente");
-    }, []);
 
     const handleLogout = () => {
         logout();
@@ -75,7 +74,7 @@ export const Home = () => {
         <div className="app-wrapper">
             <div className={`sidebar ${!sidebarOpen ? "collapsed" : ""}`}>
                 <div className="sidebar-logo">
-                    <i className="fas fa-paw"></i>
+                    <i class='bx bx-menu' />
                     {sidebarOpen && <span>AnimalDex</span>}
                 </div>
                 
@@ -132,7 +131,7 @@ export const Home = () => {
             </div>
 
             <div className="toggle-sidebar-btn" onClick={() => setSidebarOpen(!sidebarOpen)}>
-                <i className="fas fa-bars"></i>
+                <i class='bx bx-menu'></i>
             </div>
 
             <div className="main-area">
