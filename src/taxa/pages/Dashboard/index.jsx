@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Menu } from '@boxicons/react';
+import { Binocular, Butterfly, CameraAlt, Menu } from '@boxicons/react';
 
 
 import { useAuth } from "@context/auth.context";
@@ -152,10 +152,10 @@ export const Home = () => {
 
 const InicioPage = ({ data }) => {
     const stats = [
-        { label: "Especies Registradas", value: data.stats?.totalSpecies || 0, icon: "fas fa-dragon" },
-        { label: "Avistamientos", value: data.stats?.totalSightings || 0, icon: "fas fa-eye" },
+        { label: "Especies Registradas", value: data.stats?.totalSpecies || 0, icon: <Butterfly/> },
+        { label: "Avistamientos", value: data.stats?.totalSightings || 0, icon: <Binocular /> },
         { label: "Usuarios Activos", value: data.stats?.activeUsers || 0, icon: "fas fa-users" },
-        { label: "Fotos Subidas", value: data.stats?.totalPhotos || 0, icon: "fas fa-camera" }
+        { label: "Fotos Subidas", value: data.stats?.totalPhotos || 0, icon: <CameraAlt /> }
     ];
 
     return (
@@ -169,7 +169,7 @@ const InicioPage = ({ data }) => {
                 {stats.map((stat, index) => (
                     <div key={index} className="stat-card">
                         <div className="stat-icon">
-                            <i className={stat.icon}></i>
+                            {stat.icon}
                         </div>
                         <div className="stat-info">
                             <h3>{stat.value.toLocaleString()}</h3>
