@@ -1,3 +1,4 @@
+import { Robot } from "@boxicons/react";
 import { useEffect, useRef, useState } from "react";
 
 export const ChatAssistant = () => {
@@ -28,7 +29,7 @@ export const ChatAssistant = () => {
     return (
         <div className="chat-assistant">
             <div className="chat-bubble" onClick={() => setIsOpen(!isOpen)}>
-                <i className="fas fa-robot"></i>
+                <Robot />
             </div>
             
             <div className={`chat-window ${!isOpen ? "closed" : ""}`}>
