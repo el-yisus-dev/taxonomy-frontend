@@ -1,16 +1,25 @@
 export const validateLogin = (form) => {
   const newErrors = {};
 
-  if (!form.identifier.trim()) {
-    newErrors.identifier = "El login o email obligatorio";
+  const identifier = form.identifier?.trim();
+
+  if (!identifier) {
+    newErrors.identifier = "El login o email es obligatorio";
+    return newErrors;
   }
 
-  if (!form.password.trim()) {
-    newErrors.password = "La contraseña es obligatoria";
+  const isEmail = identifier.includes("@");
+
+  if (isEmail) {
+    const emailRegex = /^\S+@\S+\.\S+$/;
+
+    if (!emailRegex.test(identifier)) {
+      newErrors.identifier = "Email inválido";
+    }
   }
 
   return newErrors;
-}
+};
 
 export const validateRegister = (form) => {
   const errors = {};
