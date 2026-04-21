@@ -1,0 +1,6 @@
+export const RANK_OPTIONS = [
+  "DOMAIN", "KINGDOM", "PHYLUM", "CLASS",
+  "ORDER", "FAMILY", "GENUS", "SPECIES"
+];
+
+export const STATUS_OPTIONS = ["PENDING", "VALIDATED", "REJECTED"];

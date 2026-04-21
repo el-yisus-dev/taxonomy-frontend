@@ -22,6 +22,11 @@ html {
   scroll-behavior: smooth;
 }
 
+html, body {
+  height: auto;
+  overflow-y: auto;
+}
+
 body.dark {
   --color-primary: #2563EB;
   --color-accent: #10B981;
@@ -60,7 +65,6 @@ body {
   background: var(--bg-gradient, #0b1120);
   color: var(--text-primary);
   height: 100%;
-  overflow: hidden;
   position: fixed;
   top: 0;
   left: 0;
@@ -81,9 +85,8 @@ body {
 /* ========= APP WRAPPER ========= */
 .app-wrapper {
   display: flex;
-  height: 100%;
+  min-height: 100vh;
   width: 100%;
-  position: relative;
   overflow-x: hidden;
 }
 
@@ -107,6 +110,7 @@ body {
   border-radius: 0 32px 32px 0;
   transform: translateX(0);
   -webkit-overflow-scrolling: touch;
+  justify-content: space-between;
 }
 
 .sidebar.collapsed {
@@ -148,12 +152,10 @@ body {
 
 .main-area {
   flex: 1;
-  width: 100%;
+  min-height: 0; /* 🔥 clave real */
   overflow-y: auto;
   overflow-x: hidden;
   padding: 80px 20px 20px 20px;
-  transition: all 0.2s;
-  -webkit-overflow-scrolling: touch;
 }
 
 .sidebar-logo {
@@ -223,8 +225,7 @@ body {
 
 /* ========= DASHBOARD CONTENT ========= */
 .dashboard-content {
-  max-width: 1400px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .dashboard-header {

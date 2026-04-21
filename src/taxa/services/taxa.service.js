@@ -5,7 +5,7 @@ export const getTaxons = async (params = {}) => {
     params: {
       page: params.page || 1,
       limit: params.limit || 10,
-      ...params
+      ...params,
     }
   });
 
@@ -22,4 +22,9 @@ export const getObservations = async (params = {}) => {
   });
 
   return response.data;
+};
+
+export const createObservation = async (payload) => {
+  const res = await api.post("/observations", payload);
+  return res.data;
 };
