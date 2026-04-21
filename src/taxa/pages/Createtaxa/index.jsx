@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Button from "@shared/Button";
 import FormRow from "@shared/FormRow";
 import Input from "@shared/Input";
 
-// Agrega estos estilos en el mismo archivo o en un CSS aparte (ver más abajo)
 import "./style.css";
 
 export const CreateTaxaPage = () => {
@@ -14,8 +13,7 @@ export const CreateTaxaPage = () => {
   const [form, setForm] = useState({
     name: "",
     rank: "",
-    parentId: "",
-    validationStatus: "PENDING"
+    description: ""
   });
 
   const [errors, setErrors] = useState({});
@@ -23,7 +21,6 @@ export const CreateTaxaPage = () => {
 
   const handleChange = (field) => (e) => {
     let value = e.target.value;
-    // 🔥 Convertir rank a mayúsculas
     if (field === "rank") {
       value = value.toUpperCase();
     }
@@ -36,11 +33,10 @@ export const CreateTaxaPage = () => {
   const validateForm = () => {
     const newErrors = {};
     if (!form.name.trim()) newErrors.name = "El nombre es requerido";
-    else if (form.name.trim().length < 2) newErrors.name = "El nombre debe tener al menos 2 caracteres";
+    else if (form.name.trim().length < 2)
+      newErrors.name = "El nombre debe tener al menos 2 caracteres";
     if (!form.rank) newErrors.rank = "Debes seleccionar un rango taxonómico";
-    if (form.parentId && form.parentId.trim() && isNaN(Number(form.parentId))) {
-      newErrors.parentId = "El ID del padre debe ser un número";
-    }
+    if (!form.description.trim()) newErrors.description = "La descripción es requerida";
     return newErrors;
   };
 
@@ -54,19 +50,18 @@ export const CreateTaxaPage = () => {
 
     setLoading(true);
     try {
-      // 🔥 Asegurar mayúsculas también aquí
       const payload = {
+        rank: form.rank.toUpperCase(),
         name: form.name.trim(),
-        rank: form.rank.toUpperCase(), // <- otra capa de seguridad
-        validationStatus: form.validationStatus,
-        ...(form.parentId && form.parentId.trim() && { parentId: Number(form.parentId) })
+        description: form.description.trim()
       };
-      console.log("Taxón creado:", payload);
-      alert("Taxón creado exitosamente");
+      console.log("Enviando taxón:", payload);
+      // await createTaxon(payload); // descomenta cuando tengas el servicio
+      alert("✅ Taxón creado exitosamente");
       navigate("/home");
     } catch (err) {
       console.error("Error al crear taxón:", err);
-      alert("Error al crear el taxón");
+      alert("❌ Error al crear el taxón");
     } finally {
       setLoading(false);
     }
@@ -85,7 +80,7 @@ export const CreateTaxaPage = () => {
   ];
 
   return (
-    <section className="login register">
+    <section className="login register create-taxon-page">
       <form className="register__form" onSubmit={handleSubmit}>
         <FormRow>
           <h2 className="login__title">Crear Nuevo Taxón</h2>
@@ -94,7 +89,7 @@ export const CreateTaxaPage = () => {
         <FormRow>
           <Input
             label="Nombre del taxón"
-            placeholder="Ej: Homo sapiens, Canis lupus, Felis catus"
+            placeholder="Ej: Bacteria, Homo sapiens"
             value={form.name}
             onChange={handleChange("name")}
             error={errors.name}
@@ -122,31 +117,17 @@ export const CreateTaxaPage = () => {
         </FormRow>
 
         <FormRow>
-          <Input
-            label="ID del taxón padre (opcional)"
-            placeholder="Ej: 123"
-            type="number"
-            value={form.parentId}
-            onChange={handleChange("parentId")}
-            error={errors.parentId}
-            disabled={loading}
-            helperText="Opcional - Debe ser un nivel superior al rango seleccionado"
-          />
-        </FormRow>
-
-        <FormRow>
           <div className="form-group">
-            <label className="form-label">Estado de validación</label>
-            <select
-              className="form-select"
-              value={form.validationStatus}
-              onChange={handleChange("validationStatus")}
+            <label className="form-label">Descripción *</label>
+            <textarea
+              value={form.description}
+              onChange={handleChange("description")}
               disabled={loading}
-            >
-              <option value="PENDING">Pendiente</option>
-              <option value="APPROVED">Aprobado</option>
-              <option value="REJECTED">Rechazado</option>
-            </select>
+              placeholder="Ej: Microorganismos unicelulares procariotas"
+              className={`form-textarea ${errors.description ? "error" : ""}`}
+              rows={4}
+            />
+            {errors.description && <span className="error-message">{errors.description}</span>}
           </div>
         </FormRow>
 
@@ -154,15 +135,6 @@ export const CreateTaxaPage = () => {
           <Button size="lg" type="submit" disabled={loading}>
             {loading ? "Creando..." : "Crear Taxón"}
           </Button>
-        </FormRow>
-
-        <FormRow>
-          <p className="login__create-account-text">
-            ¿Quieres volver al inicio?
-            <Link to="/home" className="login__create-account-link">
-              <span> Ir al dashboard</span>
-            </Link>
-          </p>
         </FormRow>
       </form>
     </section>

@@ -14,6 +14,7 @@ import { CreateObservationPage } from "./taxa/pages/AddObservation";
 
 import ProtectedRoute from "@shared/ProtectedRoute";
 import { CreateTaxaPage } from "./taxa/pages/Createtaxa";
+import { Errorpage404 } from "@shared/ErrorPage"
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
   {
     path: "/verify-email",
     element: <VerifyEmailPage />
+  },
+  {
+    path: "*",
+    element: <Errorpage404 />
   },
 
   {
