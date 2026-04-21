@@ -13,7 +13,7 @@ export const TaxonCard = ({ taxon }) => {
 
       <button
         className="taxon-card__btn"
-        onClick={() => navigate(`/taxons/${taxon.id}`)}
+        onClick={() => navigate(`/home/taxons/${taxon.id}`)}
       >
         Ver detalle
       </button>

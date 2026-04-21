@@ -13,6 +13,7 @@ import { ExplorarPage } from "./taxa/pages/Explorer";
 import { CreateObservationPage } from "./taxa/pages/AddObservation";
 
 import ProtectedRoute from "@shared/ProtectedRoute";
+import { TaxonDetailPage } from "./taxa/pages/TaxaDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -63,7 +64,11 @@ const router = createBrowserRouter([
       {
         path: "observations/create",
         element: <CreateObservationPage />
-      }
+      },
+      {
+        path: "taxons/:id",
+        element: <TaxonDetailPage />
+      },
     ]
   }
 ]);
