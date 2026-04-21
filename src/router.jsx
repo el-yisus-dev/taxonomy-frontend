@@ -10,6 +10,7 @@ import { MapaPage } from "./taxa/pages/Map";
 import { HomePage } from "./taxa/pages/HomePage";
 import { RegistrosPage } from "./taxa/pages/RegisterPage";
 import { ExplorarPage } from "./taxa/pages/Explorer";
+import { CreateObservationPage } from "./taxa/pages/AddObservation";
 
 import ProtectedRoute from "@shared/ProtectedRoute";
 
@@ -58,6 +59,10 @@ const router = createBrowserRouter([
       {
         path: "registros",
         element: <RegistrosPage />
+      },
+      {
+        path: "observations/create",
+        element: <CreateObservationPage />
       }
     ]
   }
