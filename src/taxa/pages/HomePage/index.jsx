@@ -136,7 +136,7 @@ export const HomePage = ({ data = {} }) => {
                                 className="quick-item"
                                 onClick={() => {
                                 setShowQuickCreate(false);
-                                navigate("/taxons/create");
+                                navigate("/home/taxons/create");
                                 }}
                             >
                                 🌿 Nuevo taxón
