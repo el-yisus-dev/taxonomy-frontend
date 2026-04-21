@@ -6,7 +6,7 @@ import { CameraModal } from "../../components/CameraModal";
 import { ChatAssistant } from "../../components/ChatAssistant";
 
 export const HomeLayout = () => {
-    const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [sidebarOpen, setSidebarOpen] = useState(false);
     const [showCamera, setShowCamera] = useState(false);
 
     return (

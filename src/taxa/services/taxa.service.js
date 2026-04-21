@@ -28,3 +28,9 @@ export const createObservation = async (payload) => {
   const res = await api.post("/observations", payload);
   return res.data;
 };
+
+
+export const getTaxonById = async (id) => {
+  const res = await api.get(`/taxons/${id}`);
+  return res.data;
+}

@@ -89,9 +89,13 @@ export const CameraModal = ({ onClose, onCapture }) => {
             
             canvas.toBlob((blob) => {
                 if (blob && onCapture) {
-                    onCapture(blob);
+                    const file = new File([blob], `camera-${Date.now()}.jpg`, {
+                    type: "image/jpeg"
+                    });
+
+                    onCapture(file);
                 }
-            }, 'image/jpeg', 0.9);
+                }, "image/jpeg", 0.9);
             
             onClose();
         }

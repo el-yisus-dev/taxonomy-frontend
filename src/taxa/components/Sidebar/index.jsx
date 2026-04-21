@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "@context/darkLighit.context"; 
 import { useAuth } from "@context/auth.context";
 
-export default function Sidebar({ sidebarOpen, toggleSidebar, onOpenCamera, setSidebarOpen }) {
+export default function c({ sidebarOpen, toggleSidebar, onOpenCamera, setSidebarOpen }) {
     const navigate = useNavigate();
     const location = useLocation();
         
