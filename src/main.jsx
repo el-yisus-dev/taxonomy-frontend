@@ -10,7 +10,7 @@ import { ThemeProvider } from "@context/darkLighit.context";
 
 import "./index.css";
 import "./style.css";
-
+import "leaflet/dist/leaflet.css";
 import 'boxicons/css/boxicons.min.css';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
