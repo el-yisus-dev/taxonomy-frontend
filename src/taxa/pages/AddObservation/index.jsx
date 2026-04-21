@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import Button from "@shared/Button";
+import Input from "@shared/Input";
+import FormRow from "@shared/FormRow";
+
+import { useSnackbar } from "@context/snackbar.context";
+
 import { createObservation } from "../../services/taxa.service";
 import { uploadToCloudinary } from "../../services/images.service";
 import { MapPicker } from "../../components/MapPicker";
@@ -9,6 +15,7 @@ import "./style.css";
 
 export const CreateObservationPage = () => {
   const navigate = useNavigate();
+  const { showSnackbar } = useSnackbar(); // 🔥 SOLO ESTE
 
   const [form, setForm] = useState({
     description: "",
@@ -37,18 +44,17 @@ export const CreateObservationPage = () => {
     try {
       setLoading(true);
 
-      // 🔥 VALIDACIONES
       if (!coords) {
-        alert("Selecciona una ubicación en el mapa");
+        showSnackbar("Selecciona una ubicación", "error");
         return;
       }
 
       if (!form.description && images.length === 0) {
-        alert("Debes agregar descripción o al menos una imagen");
+        showSnackbar("Agrega descripción o al menos una imagen", "error");
         return;
       }
 
-      // 🔥 subir imágenes a Cloudinary
+      // 🔥 subir imágenes
       const uploadedImages = await Promise.all(
         images.map((file) => uploadToCloudinary(file))
       );
@@ -64,10 +70,15 @@ export const CreateObservationPage = () => {
 
       await createObservation(payload);
 
-      navigate("/home");
+      showSnackbar("Observación creada correctamente", "success");
 
-    } catch (error) {
-      console.error("Error creating observation", error);
+      setTimeout(() => {
+        navigate("/home");
+      }, 800);
+
+    } catch (err) {
+      const message = err.response?.data?.message || "Error al crear la observación";
+      showSnackbar(message, "error");
     } finally {
       setLoading(false);
     }
@@ -78,50 +89,63 @@ export const CreateObservationPage = () => {
       <h1>Nueva Observación</h1>
 
       <form onSubmit={handleSubmit}>
-        
+
         {/* DESCRIPCIÓN */}
-        <textarea
-          name="description"
-          placeholder="Descripción (opcional si subes imágenes)"
-          onChange={handleChange}
-        />
+        <FormRow>
+          <div className="input">
+            <label className="input__label">Descripción</label>
+            <textarea
+              className="input__field"
+              name="description"
+              placeholder="Opcional si subes imágenes"
+              value={form.description}
+              onChange={handleChange}
+            />
+          </div>
+        </FormRow>
 
-        {/* FECHA */}
-        <input
-          type="datetime-local"
-          name="observedAt"
-          onChange={handleChange}
-          required
-        />
+        <FormRow columns={2}>
+          <Input
+            label="Fecha de observación"
+            type="datetime-local"
+            name="observedAt"
+            value={form.observedAt}
+            onChange={handleChange}
+            required
+          />
 
-        {/* LUGAR (opcional) */}
-        <input
-          type="text"
-          name="placeName"
-          placeholder="Nombre del lugar"
-          onChange={handleChange}
-        />
+          <Input
+            label="Lugar"
+            name="placeName"
+            placeholder="Ej: CDMX, México"
+            value={form.placeName}
+            onChange={handleChange}
+          />
+        </FormRow>
 
-        {/* MAPA */}
         <div className="map-section">
           <p>Selecciona ubicación:</p>
+
           <div className="map-wrapper map-wrapper--relative">
             <MapPicker setCoords={setCoords} />
           </div>
+
           {coords && (
-            <p>
+            <p className="coords">
               📍 {coords.lat.toFixed(4)} | {coords.lng.toFixed(4)}
             </p>
           )}
         </div>
 
         {/* IMÁGENES */}
-        <input
-          type="file"
-          multiple
-          accept="image/*"
-          onChange={handleImages}
-        />
+        <FormRow>
+          <Input
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={handleImages}
+          />
+        </FormRow>
 
         {/* PREVIEW */}
         {images.length > 0 && (
@@ -137,9 +161,9 @@ export const CreateObservationPage = () => {
         )}
 
         {/* SUBMIT */}
-        <button type="submit" disabled={loading}>
+        <Button type="submit" disabled={loading}>
           {loading ? "Subiendo..." : "Crear Observación"}
-        </button>
+        </Button>
 
       </form>
     </div>

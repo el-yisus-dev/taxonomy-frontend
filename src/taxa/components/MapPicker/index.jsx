@@ -26,7 +26,6 @@ const RecenterMap = ({ coords }) => {
   return null;
 };
 
-// 📍 Marcador draggable
 const DraggableMarker = ({ coords, setCoords }) => {
   const markerRef = useRef(null);
 
